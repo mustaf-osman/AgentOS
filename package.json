@@ -1,0 +1,53 @@
+{
+  "name": "agentos",
+  "productName": "AgentOS",
+  "version": "0.1.0",
+  "description": "通过自然语言控制电脑的桌面智能体",
+  "author": "VeriFoundry",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node tools/launch.mjs",
+    "desktop": "electron .",
+    "desktop:pack": "electron-builder --dir --win",
+    "desktop:build": "electron-builder --win nsis",
+    "dev": "node --env-file-if-exists=.env --watch src/server.mjs",
+    "install:browser": "npm install --no-save playwright@1.61.0 && npx playwright install chromium"
+  },
+  "main": "electron/main.cjs",
+  "devDependencies": {
+    "electron": "44.9.1",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.verifoundry.agentos",
+    "productName": "AgentOS",
+    "artifactName": "AgentOS-Setup-${version}.${ext}",
+    "asar": true,
+    "asarUnpack": ["src/**", "public/**", "tools/**"],
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "public/**/*",
+      "tools/**/*",
+      "package.json",
+      "!**/*.map",
+      "!**/*.log"
+    ],
+    "directories": { "buildResources": "build", "output": "dist" },
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "build/agentos.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AgentOS",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

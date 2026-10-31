@@ -1,0 +1,24 @@
+# secrets & local runtime
+data/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+AccessKey*
+*credentials*
+*secret*
+
+# deps & build artifacts
+node_modules/
+dist/
+release/
+*.log
+*.sqlite
+*.sqlite-*
+
+# local backups / profiles
+.patch-backup/
+desktop-profile*/
+.DS_Store
+Thumbs.db
